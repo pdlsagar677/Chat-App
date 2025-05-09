@@ -5,6 +5,7 @@ import cors from "cors";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import messageRoutes from "./routes/message-route.js";
+import adminRoutes from "./routes/admin-route.js"
 import bodyParser from 'body-parser';
 import {app,server } from "./lib/socket.js";
 import path from "path";
@@ -33,6 +34,7 @@ app.use(cors({
 // Use the auth routes for the /api/auth endpoint
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/admin", adminRoutes);
 
 
 
