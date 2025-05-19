@@ -14,3 +14,18 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
+// Get a single user by ID (excluding password)
+export const getUserById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findById(id, { password: 0 }); // cleaner with findById
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching user by ID:", error);
+    next(error); // Pass error to the error handling middleware
+  }
+};
+
