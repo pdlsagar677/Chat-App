@@ -8,6 +8,7 @@ import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminLayout from './components/layouts/Admin-layout'
 import { AdminUsers } from './pages/admin-view/AdminUsers';
+import AdminEditUser from './pages/admin-view/AdminUpdateUser'
 import { useAuthStore } from './store/useAuthStore';
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
@@ -48,8 +49,9 @@ const App = () => {
           {/* creating admin with nested routes */}
           
           <Route path="/admin" element={authUser ? <AdminLayout /> : <Navigate to="/login" />} >
+          
           <Route path="users" element={<AdminUsers />} />
-
+          <Route path="users/:id/edit" element={<AdminEditUser />} />
           </Route>
 
         </Routes>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useNavigate, Link } from "react-router-dom";
-import { axiosInstance } from "../../lib/axios"; // adjust path
+import { axiosInstance } from "../../lib/axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const AdminUsers = () => {
   const { authUser } = useAuthStore();
@@ -21,7 +23,7 @@ export const AdminUsers = () => {
 
   const getAllUsersData = async () => {
     try {
-      const { data } = await axiosInstance.get("/admin/users"); // no need for token header, interceptor adds it
+      const { data } = await axiosInstance.get("/admin/users");
       setUsers(data);
     } catch (err) {
       console.error("Failed to fetch users:", err);
@@ -37,7 +39,7 @@ export const AdminUsers = () => {
     try {
       await axiosInstance.delete(`/admin/users/delete/${id}`);
       setUsers((prev) => prev.filter((user) => user._id !== id));
-      alert("User deleted successfully!");
+      toast.success("User deleted successfully!");
     } catch (err) {
       console.error("Error deleting user:", err);
     }
@@ -45,8 +47,10 @@ export const AdminUsers = () => {
 
   return (
     <div className="flex-1 flex flex-col overflow-auto">
+      <ToastContainer position="top-right" autoClose={3000} />
+      
       <div className="border-b p-4">
-        <h1 className="text-xl font-semibold">Admin - Users</h1>
+        <h1 className="text-xl font-semibold"> Users -Table</h1>
       </div>
 
       {loading ? (

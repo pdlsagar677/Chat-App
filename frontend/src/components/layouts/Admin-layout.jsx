@@ -54,9 +54,11 @@ const AdminLayout = () => {
         </div>
       </aside>
 
-      <main className="flex-1 overflow-auto">
-        <Outlet />
-      </main>
+
+      <main className="flex-1 overflow-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">Welcome to Admin Dashboard</h1>
+      <Outlet />
+    </main>
     </div>
   );
 };
