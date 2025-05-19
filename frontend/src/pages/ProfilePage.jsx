@@ -3,8 +3,13 @@ import { useAuthStore } from "../store/useAuthStore";
 import { Camera, Mail, User } from "lucide-react";
 
 const ProfilePage = () => {
-  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
+  const authUser = useAuthStore((state) => state.authUser);
+  const isUpdatingProfile = useAuthStore((state) => state.isUpdatingProfile);
+  const updateProfile = useAuthStore((state) => state.updateProfile);
+
   const [selectedImg, setSelectedImg] = useState(null);
+
+ 
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -20,6 +25,7 @@ const ProfilePage = () => {
       await updateProfile({ profilePic: base64Image });
     };
   };
+  
 
   return (
     <div className="h-screen pt-20">
@@ -31,11 +37,10 @@ const ProfilePage = () => {
           </div>
 
           {/* avatar upload section */}
-
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <img
-                src={selectedImg || authUser.profilePic || "/avatar.png"}
+                src={selectedImg || authUser?.profilePic || "/avatar.png"}
                 alt="Profile"
                 className="size-32 rounded-full object-cover border-4 "
               />
@@ -82,24 +87,25 @@ const ProfilePage = () => {
               <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authUser?.email}</p>
             </div>
           </div>
-   {authUser?.isAdmin && (
-  <div className="mt-4 flex justify-center">
-    <button
-      onClick={() => (window.location.href = "/admin")}
-      className="px-3 py-1.5 bg-teal-500 text-white rounded-full hover:bg-teal-600 transition duration-200 shadow-md"
-      style={{ minWidth: "140px" }}
-    >
-      Admin Dashboard
-    </button>
-  </div>
-)}
+
+          {authUser?.isAdmin && (
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={() => (window.location.href = "/admin")}
+                className="px-3 py-1.5 bg-teal-500 text-white rounded-full hover:bg-teal-600 transition duration-200 shadow-md"
+                style={{ minWidth: "140px" }}
+              >
+                Admin Dashboard
+              </button>
+            </div>
+          )}
 
           <div className="mt-6 bg-base-300 rounded-xl p-6">
-            <h2 className="text-lg font-medium  mb-4">Account Information</h2>
+            <h2 className="text-lg font-medium mb-4">Account Information</h2>
             <div className="space-y-3 text-sm">
               <div className="flex items-center justify-between py-2 border-b border-zinc-700">
                 <span>Member Since</span>
-                <span>{authUser.createdAt?.split("T")[0]}</span>
+                <span>{authUser?.createdAt?.split("T")[0]}</span>
               </div>
               <div className="flex items-center justify-between py-2">
                 <span>Account Status</span>
