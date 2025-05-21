@@ -6,6 +6,7 @@ import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import messageRoutes from "./routes/message-route.js";
 import adminRoutes from "./routes/admin-route.js"
+import videoCallRoute from "./routes/videocall-route.js"
 import bodyParser from 'body-parser';
 import {app,server } from "./lib/socket.js";
 import path from "path";
@@ -27,7 +28,7 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-  origin: "http://localhost:5173", // Your frontend URL
+  origin: ["http://localhost:5173", "http://192.168.1.5:5173"], // Your frontend URL
   credentials: true  // Required for cookies/session
 }));
 
@@ -35,6 +36,7 @@ app.use(cors({
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
+app.use('/api', videoCallRoute);
 
 
 

@@ -85,20 +85,35 @@ export const useAuthStore = create((set, get) => ({
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
-
+  
     const socket = io(BASE_URL, {
       query: {
         userId: authUser._id,
       },
     });
+  
     socket.connect();
-
-    set({ socket: socket });
-
+    set({ socket });
+  
     socket.on("getOnlineUsers", (userIds) => {
       set({ onlineUsers: userIds });
     });
+  
+    // Optional: Handle video call signaling
+    socket.on("incomingCall", (data) => {
+      console.log("Incoming call from:", data);
+      // You can trigger a UI update or notification here
+    });
+  
+    socket.on("callAccepted", (data) => {
+      console.log("Call accepted by:", data);
+    });
+  
+    socket.on("callEnded", () => {
+      console.log("Call ended");
+    });
   },
+  
   disconnectSocket: () => {
     if (get().socket?.connected) get().socket.disconnect();
   },
