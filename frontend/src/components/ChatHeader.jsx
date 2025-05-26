@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import VideoCallButton from "../components/VideoCall"; // 👈 Import here
-
+import AudioCallButton from "./AudioCall";
 const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
   const { onlineUsers, authUser } = useAuthStore();
@@ -33,12 +33,20 @@ const ChatHeader = () => {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* audiocall button */}
+          <AudioCallButton
+            roomId={roomId}
+            currentUserId={authUser._id}
+            targetUserId={selectedUser._id}
+          />
+          
           {/* Video Call Button */}
           <VideoCallButton
             roomId={roomId}
             currentUserId={authUser._id}
             targetUserId={selectedUser._id}
           />
+       
 
           {/* Close Chat Button */}
           <button onClick={() => setSelectedUser(null)}>

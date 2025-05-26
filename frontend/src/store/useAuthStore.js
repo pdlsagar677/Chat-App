@@ -100,20 +100,52 @@ export const useAuthStore = create((set, get) => ({
       set({ onlineUsers: userIds });
     });
   
-    // Optional: Handle video call signaling
+    // Video call signaling events (existing)
     socket.on("incomingCall", (data) => {
-      console.log("Incoming call from:", data);
-      // You can trigger a UI update or notification here
+      console.log("Incoming video call from:", data);
+      // TODO: UI update or notification for incoming video call
     });
   
     socket.on("callAccepted", (data) => {
-      console.log("Call accepted by:", data);
+      console.log("Video call accepted by:", data);
     });
   
     socket.on("callEnded", () => {
-      console.log("Call ended");
+      console.log("Video call ended");
+    });
+  
+    // --- Add audio call signaling events here ---
+  
+    socket.on("audio-incomingCall", (data) => {
+      console.log("Incoming audio call from:", data);
+      // TODO: Trigger audio call UI update or notification
+    });
+  
+    socket.on("audio-callAccepted", (data) => {
+      console.log("Audio call accepted by:", data);
+    });
+  
+    socket.on("audio-callEnded", () => {
+      console.log("Audio call ended");
+    });
+  
+    // Add audio WebRTC signaling messages:
+    socket.on("audio-offer", (payload) => {
+      console.log("Received audio offer:", payload);
+      // Handle offer in your audio call component
+    });
+  
+    socket.on("audio-answer", (payload) => {
+      console.log("Received audio answer:", payload);
+      // Handle answer in your audio call component
+    });
+  
+    socket.on("audio-ice-candidate", (payload) => {
+      console.log("Received audio ice candidate:", payload);
+      // Handle ICE candidate in your audio call component
     });
   },
+  
   
   disconnectSocket: () => {
     if (get().socket?.connected) get().socket.disconnect();

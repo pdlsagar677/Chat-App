@@ -7,4 +7,8 @@ router.get('/videocall', (req, res) => {
   res.send('Video call route is working.');
 });
 
+router.get('/audiocall', (req, res) => {
+  res.send('Video call route is working.');
+});
+
 export default router;
