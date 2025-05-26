@@ -28,7 +28,9 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-  origin: ["http://localhost:5173", "http://192.168.1.5:5173"], // Your frontend URL
+  origin: ["http://localhost:5173",
+      "http://192.168.1.102:5173"
+  ], 
   credentials: true  // Required for cookies/session
 }));
 
@@ -49,7 +51,7 @@ if (process.env.NODE_ENV === "production") {
   }
   
 // Start the server and connect to the database
-server.listen(PORT, async () => {
+server.listen(PORT,'0.0.0.0', async () => {
     console.log("Server is running on port " + PORT);
     try {
         await connectDB(); // Assuming connectDB is an async function
