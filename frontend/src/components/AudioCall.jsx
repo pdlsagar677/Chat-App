@@ -137,11 +137,16 @@ const AudioCallButton = ({ roomId, currentUserId, targetUserId }) => {
       ) : (
         <div className="flex flex-col gap-4 mt-4 items-center">
           <audio
-            srcObject={remoteAudioSrc}
-            autoPlay
-            controls
-            style={{ outline: "none" }}
-          />
+  ref={(audio) => {
+    if (audio && remoteAudioSrc) {
+      audio.srcObject = remoteAudioSrc;
+    }
+  }}
+  autoPlay
+  controls
+  style={{ outline: "none" }}
+/>
+
           <button
             onClick={endCall}
             className="px-3 py-1.5 bg-red-600 text-white rounded-full hover:bg-red-700 transition duration-200 shadow-md"
