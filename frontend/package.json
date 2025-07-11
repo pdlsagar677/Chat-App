@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@stream-io/video-client": "^1.23.3",
+    "@stream-io/video-react-sdk": "^1.18.2",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "dom": "^0.0.3",
